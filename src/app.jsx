@@ -1,10 +1,10 @@
 import React from 'react';
 import Router, {Route} from 'react-router';
-import AuthenticatedApp from './components/AuthenticatedApp'
-import Login from './components/Login';
-import Signup from './components/Signup';
-import Home from './components/Home';
-import Quote from './components/Quote';
+import AuthenticatedApp from './components/Authenticated/AuthenticatedApp'
+import Login from './components/Login/Login';
+import Signup from './components/Signup/Signup';
+import Home from './components/Home/Home';
+import Quote from './components/Quote/Quote';
 import RouterContainer from './services/RouterContainer';
 import LoginActions from './actions/LoginActions';
 

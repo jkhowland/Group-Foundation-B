@@ -3,13 +3,6 @@
   "version": "0.0.1",
   "description": "Seed project for React, Browserify, Rework SPAs",
   "main": "index.js",
-  "repository": {
-    "type": "git",
-    "url": "git@github.com:mgonto/react-browserify-spa-seed.git"
-  },
-  "authors": [
-    "Martin Gontovnikas <martin@gon.to> (http://gon.to/)"
-  ],
   "browserify": {
     "transform": [
       "babelify"
@@ -28,19 +21,17 @@
     "lint-jscs": "jscs .",
     "lint": "npm run lint-eslint && npm run lint-jscs"
   },
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/mgonto/react-browserify-spa-seed/issues"
-  },
-  "homepage": "https://github.com/mgonto/react-browserify-spa-seed",
   "dependencies": {
     "bootstrap": "^3.3.0",
+    "firebase": "^2.3.2",
+    "fireproof": "^3.1.0",
     "flux": "^2.0.1",
     "jwt-decode": "^1.1.0",
     "react": "^0.13",
     "react-mixin": "^1.1.0",
     "react-router": "^0.13.2",
     "reqwest": "^1.1.5",
+    "webpack": "^1.12.9",
     "when": "^3.7.2"
   },
   "devDependencies": {
