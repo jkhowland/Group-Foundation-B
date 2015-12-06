@@ -16,7 +16,7 @@ export default class Login extends React.Component {
     e.preventDefault();
     Auth.login(this.state.email, this.state.password)
       .catch(function(err) {
-        alert("There's an error logging in");
+        alert("There's an error logging in", err);
         console.log("Error logging in", err);
       });
   }

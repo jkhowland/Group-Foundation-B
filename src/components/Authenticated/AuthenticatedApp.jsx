@@ -67,7 +67,7 @@ export default class AuthenticatedApp extends React.Component {
           <Link to="home">Home</Link>
         </li>
         <li>
-          <Link to="quote">Quote</Link>
+          <Link to="dashboard">Dashboard</Link>
         </li>
         <li>
           <a href="" onClick={this.logout}>Logout</a>

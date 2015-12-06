@@ -1,4 +1,4 @@
-const app = 'https://blazing-heat-9673.firebaseIO.com';
+const app = 'https://group-foundation-b.firebaseIO.com';
 import Firebase from 'firebase';
 import Fireproof from 'fireproof';
 

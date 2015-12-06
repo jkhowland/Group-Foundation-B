@@ -4,7 +4,7 @@ import AuthenticatedApp from './components/Authenticated/AuthenticatedApp'
 import Login from './components/Login/Login';
 import Signup from './components/Signup/Signup';
 import Home from './components/Home/Home';
-import Quote from './components/Quote/Quote';
+import Dashboard from './components/Dashboard/Dashboard';
 import RouterContainer from './services/RouterContainer';
 import LoginActions from './actions/LoginActions';
 
@@ -13,7 +13,7 @@ var routes = (
     <Route name="login" handler={Login}/>
     <Route name="signup" handler={Signup}/>
     <Route name="home" path="/" handler={Home}/>
-    <Route name="quote" handler={Quote}/>
+    <Route name="dashboard" handler={Dashboard}/>
   </Route>
 );
 
