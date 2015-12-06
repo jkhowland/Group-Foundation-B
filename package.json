@@ -32,9 +32,7 @@
     "react-router": "^0.13.2",
     "reqwest": "^1.1.5",
     "webpack": "^1.12.9",
-    "when": "^3.7.2"
-  },
-  "devDependencies": {
+    "when": "^3.7.2",
     "babelify": "^6.1.0",
     "browser-sync": "^2.1.6",
     "browserify": "^8.0.3",
@@ -47,5 +45,4 @@
     "serve": "^1.4.0",
     "uglify-js": "^2.4.15",
     "watchify": "^2.1.1"
-  }
 }
