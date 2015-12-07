@@ -4,6 +4,8 @@ import AuthenticatedComponent from './../Authenticated/AuthenticatedComponent';
 import DashboardStore from '../../stores/DashboardStore.js';
 import DashboardService from '../../services/DashboardService.js';
 
+ReactMixin(AuthenticatedComponent.prototype, React.addons.LinkedStateMixin);
+
 export default AuthenticatedComponent(
 
   class Dashboard extends React.Component {
@@ -11,8 +13,9 @@ export default AuthenticatedComponent(
     super(props);
     this.state = this.getQuoteState();
     this._onChange = this._onChange.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.state = {
-      group: ''
+      groupName: 'changeme'
     };
   }
 
@@ -37,7 +40,7 @@ export default AuthenticatedComponent(
   }
 
   requestSaveGroup(){
-    DashboardService.saveGroup();
+    DashboardService.saveGroup(this.state.groupName);
   }
 
   getQuoteState() {
@@ -46,16 +49,25 @@ export default AuthenticatedComponent(
     };
   }
 
+  handleChange (newValue) {
+    console.log(newValue);
+    this.setState({groupName: newValue});
+  }
+
   render() {
+    var valueLink = {
+      value: this.state.groupName,
+      requestChange: this.handleChange
+    };
     return (
       <div>
        <h1>Save group</h1>
         <form role="form">
         <div className="form-group">
           <label htmlFor="group">Group</label>
-          <input type="text" className="form-control" id="group" ref="group" placeholder="group" />
+          <input type="text" className="form-control" valueLink={valueLink} id="group" ref="group" placeholder="group" />
         </div>
-        <button type="submit" className="btn btn-default" onClick={this.requestSaveGroup}>Submit</button>
+        <button type="submit" className="btn btn-default" onClick={this.requestSaveGroup.bind(this)}>Submit</button>
       </form>
       </div>
     );

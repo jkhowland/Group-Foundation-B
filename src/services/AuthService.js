@@ -31,11 +31,11 @@ class AuthService {
   }
 
 
-  handleAuth(loginPromise) {
+  handleAuth(loginPromise, user) {
     return loginPromise
       .then(function(response) {
         var jwt = response.token;
-        LoginActions.loginUser(jwt);
+        LoginActions.loginUser(jwt, user);
         return true;
       });
   }

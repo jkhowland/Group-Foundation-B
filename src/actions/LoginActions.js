@@ -5,7 +5,7 @@ import RouterContainer from '../services/RouterContainer'
 export default {
   loginUser: (jwt) => {
     var savedJwt = localStorage.getItem('jwt');
-    
+    //need email or another solution to now user email
     AppDispatcher.dispatch({
       actionType: LOGIN_USER,
       jwt: jwt

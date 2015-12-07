@@ -7,5 +7,13 @@ export default {
       actionType: QUOTE_GET,
       quote: quote
     })
+  },
+
+  groupSaved: (res) => {
+    console.log(res);
+    AppDispatcher.dispatch({
+      actionType: QUOTE_GET
+      //quote: quote
+    })
   }
 }

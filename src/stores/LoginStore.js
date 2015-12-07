@@ -2,7 +2,6 @@ import {LOGIN_USER, LOGOUT_USER} from '../constants/LoginConstants';
 import BaseStore from './BaseStore';
 import jwt_decode from 'jwt-decode';
 
-
 class LoginStore extends BaseStore {
 
   constructor() {
@@ -16,6 +15,7 @@ class LoginStore extends BaseStore {
     switch(action.actionType) {
       case LOGIN_USER:
         this._jwt = action.jwt;
+        //need email or another solution to now user email
         this._user = jwt_decode(this._jwt);
         this.emitChange();
         break;
