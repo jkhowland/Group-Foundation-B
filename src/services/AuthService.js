@@ -1,10 +1,7 @@
 import request from 'reqwest';
 import when from 'when';
 import FP from '../services/FirebaseService';
-import {
-  LOGIN_URL, SIGNUP_URL
-}
-from '../constants/LoginConstants';
+import {LOGIN_URL, SIGNUP_URL}from '../constants/LoginConstants';
 import LoginActions from '../actions/LoginActions';
 
 class AuthService {
@@ -31,11 +28,15 @@ class AuthService {
   }
 
 
-  handleAuth(loginPromise, user) {
+  handleAuth(loginPromise) {
     return loginPromise
       .then(function(response) {
+        var user = {};
+        user.email = response.password.email;
+        user.profileImageURL = response.password.profileImageURL;
+
         var jwt = response.token;
-        LoginActions.loginUser(jwt, user);
+        LoginActions.loginUser(jwt, user.email);
         return true;
       });
   }

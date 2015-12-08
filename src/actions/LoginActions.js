@@ -3,12 +3,14 @@ import {LOGIN_USER, LOGOUT_USER} from '../constants/LoginConstants.js';
 import RouterContainer from '../services/RouterContainer'
 
 export default {
-  loginUser: (jwt) => {
+  loginUser: (jwt, email) => {
     var savedJwt = localStorage.getItem('jwt');
+    var savedEmail = localStorage.getItem('email');
     //need email or another solution to now user email
     AppDispatcher.dispatch({
       actionType: LOGIN_USER,
-      jwt: jwt
+      jwt: jwt,
+      email: email
     });
     
     if (savedJwt !== jwt) {
@@ -16,11 +18,15 @@ export default {
 
       RouterContainer.get().transitionTo(nextPath);
       localStorage.setItem('jwt', jwt);
+      localStorage.setItem('email', email);
     }
   },
   logoutUser: () => {
     RouterContainer.get().transitionTo('/login');
+
     localStorage.removeItem('jwt');
+    localStorage.removeItem('email');
+
     AppDispatcher.dispatch({
       actionType: LOGOUT_USER
     });

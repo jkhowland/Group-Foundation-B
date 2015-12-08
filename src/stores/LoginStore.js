@@ -9,6 +9,7 @@ class LoginStore extends BaseStore {
     this.subscribe(() => this._registerToActions.bind(this))
     this._user = null;
     this._jwt = null;
+    this._email = null;
   }
 
   _registerToActions(action) {
@@ -17,10 +18,15 @@ class LoginStore extends BaseStore {
         this._jwt = action.jwt;
         //need email or another solution to now user email
         this._user = jwt_decode(this._jwt);
+        this._email = action.email;
+        //save email and picture
+        //this._userData.email = action.user.email;
+        //this._userData.profileImageURL = action.user.profileImageURL;
         this.emitChange();
         break;
       case LOGOUT_USER:
         this._user = null;
+        this._email = null;
         this.emitChange();
         break;
       default:
@@ -30,6 +36,10 @@ class LoginStore extends BaseStore {
 
   get user() {
     return this._user;
+  }
+
+  get email() {
+    return this._email;
   }
 
   get jwt() {

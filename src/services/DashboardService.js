@@ -21,7 +21,7 @@ class DashboardService {
   }
 
   saveGroup(groupName) {
-    let email =
+    console.log(LoginStore.email);
     FP.child("profiles").child("admin%40admin%2Eua").set({
       groups: [{
         groupId: 1,
