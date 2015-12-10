@@ -21,8 +21,9 @@ var router = Router.create({routes});
 RouterContainer.set(router);
 
 let jwt = localStorage.getItem('jwt');
-if (jwt) {
-  LoginActions.loginUser(jwt);
+let user = localStorage.getItem('user');
+if (jwt && user) {
+  LoginActions.loginUser(jwt, user);
 }
 
 router.run(function (Handler) {

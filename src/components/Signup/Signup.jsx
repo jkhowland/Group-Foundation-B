@@ -8,13 +8,15 @@ export default class Signup extends React.Component {
     super()
     this.state = {
       email: '',
-      password: ''
+      password: '',
+      name:'',
+      phone: ''
     };
   }
 
   signup(e) {
     e.preventDefault();
-    Auth.signup(this.state.email, this.state.password)
+    Auth.signup(this.state.email, this.state.password, this.state.name, this.state.phone)
       .catch(function(err) {
         alert("There's an error logging in", err);
         console.log("Error logging in", err);
@@ -27,7 +29,15 @@ export default class Signup extends React.Component {
         <h1>Signup</h1>
         <form role="form">
         <div className="form-group">
-          <label htmlFor="username">Username</label>
+          <label htmlFor="name">Name</label>
+          <input type="text" valueLink={this.linkState('name')} className="form-control" id="name" placeholder="name" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="phone">Phone</label>
+          <input type="tel" valueLink={this.linkState('phone')} className="form-control" id="phone" placeholder="phone" />
+        </div>
+        <div className="form-group">
+          <label htmlFor="username">Email</label>
           <input type="text" valueLink={this.linkState('email')} className="form-control" id="username" placeholder="Username" />
         </div>
         <div className="form-group">

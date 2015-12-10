@@ -1,9 +1,9 @@
 import request from 'reqwest';
 import when from 'when';
 import FP from '../services/FirebaseService';
-import {LOGIN_URL, SIGNUP_URL}from '../constants/LoginConstants';
+import {LOGIN_URL, SIGNUP_URL} from '../constants/LoginConstants';
 import LoginActions from '../actions/LoginActions';
-
+import Email from '../services/EmailService.js';
 class AuthService {
 
   login(email, password) {
@@ -17,13 +17,15 @@ class AuthService {
     LoginActions.logoutUser();
   }
 
-  signup(email, password) {
+  signup(email, password, name, phone) {
     return this.handleSignup(when(FP.createUser({
       email: email,
       password: password
     })), {
       email: email,
-      password: password
+      password: password,
+      name: name,
+      phone: phone
     });
   }
 
@@ -34,10 +36,16 @@ class AuthService {
         var user = {};
         user.email = response.password.email;
         user.profileImageURL = response.password.profileImageURL;
-
         var jwt = response.token;
-        LoginActions.loginUser(jwt, user.email);
-        return true;
+        //get user name, another
+        FP.child('profiles/' + Email.escapeEmail(user.email)).on('value', function(data){
+          user.name = data.val().name;
+          user.phone = data.val().phone;
+          LoginActions.loginUser(jwt, user);
+          return true;
+        });
+        
+        
       });
   }
 
@@ -45,14 +53,12 @@ class AuthService {
     return promise
       .then(function(res) {
         if (res.uid) {
-          let decoded_email = encodeURIComponent(user.email).replace('.', '%2E');
-          let profile = {};
-          profile[""+decoded_email+""] = {
-            name: '',
-            phone: '',
+          //save
+          FP.child("profiles/" + Email.escapeEmail(user.email)).set({
+            name: user.name,
+            phone: user.phone,
             admin: true
-          };
-          FP.child("profiles").set(profile).then(function(res) {
+          }).then(function(res) {
             console.log(res);
             alert('Successfully saved.')
             return true;
@@ -64,9 +70,6 @@ class AuthService {
       });
 
   }
-
-
 }
-
 
 export default new AuthService()

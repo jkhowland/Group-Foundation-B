@@ -2,8 +2,10 @@ import request from 'reqwest';
 import when from 'when';
 import {QUOTE_URL} from '../constants/DashboardConstants';
 import DashboardActions from '../actions/DashboardActions';
+import Email from '../services/EmailService.js';
 import LoginStore from '../stores/LoginStore.js';
 import FP from './FirebaseService.js';
+
 class DashboardService {
 
   nextQuote() {
@@ -21,14 +23,11 @@ class DashboardService {
   }
 
   saveGroup(groupName) {
-    console.log(LoginStore.email);
-    FP.child("profiles").child("admin%40admin%2Eua").set({
-      groups: [{
-        groupId: 1,
-        groupName: groupName,
-        firstAdminName: 'Name',
-        admin: true
-      }]
+    var user = JSON.parse(LoginStore.userData);
+    FP.child("profiles/" + Email.escapeEmail(user.email)).child('/groups').push({
+      groupName: groupName,
+      admin: true,
+      name: user.name
     }).then(function(res) {
       console.log('res' + res)
       //DashboardActions.groupSaved(res);
