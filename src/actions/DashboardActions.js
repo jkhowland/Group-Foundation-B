@@ -1,5 +1,5 @@
 import AppDispatcher from '../dispatchers/AppDispatcher.js';
-import {QUOTE_GET} from '../constants/DashboardConstants.js';
+import {QUOTE_GET, GROUPS_GET, GROUP_SAVED} from '../constants/DashboardConstants.js';
 
 export default {
   gotQuote: (quote) => {
@@ -10,10 +10,16 @@ export default {
   },
 
   groupSaved: (res) => {
-    console.log(res);
     AppDispatcher.dispatch({
-      actionType: QUOTE_GET
+      actionType: GROUP_SAVED
       //quote: quote
     })
-  }
+  },
+
+  gotGroups: (groups) => {
+    AppDispatcher.dispatch({
+      actionType: GROUPS_GET,
+      groups: groups
+    })
+  },
 }

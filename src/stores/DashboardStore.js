@@ -1,4 +1,4 @@
-import {QUOTE_GET} from '../constants/DashboardConstants';
+import {QUOTE_GET, GROUPS_GET} from '../constants/DashboardConstants';
 import {LOGOUT_USER} from '../constants/LoginConstants';
 import BaseStore from './BaseStore';
 
@@ -7,7 +7,7 @@ class DashboardStore extends BaseStore {
   constructor() {
     super();
     this.subscribe(() => this._registerToActions.bind(this))
-    this._quote = '';
+    this._groups = '';
   }
 
   _registerToActions(action) {
@@ -20,13 +20,17 @@ class DashboardStore extends BaseStore {
         this._quote = null;
         this.emitChange();
         break;
+      case GROUPS_GET:
+        this._groups = action.groups;
+        this.emitChange();
+        break;
       default:
         break;
     };
   }
 
-  get quote() {
-    return this._quote;
+  get groups() {
+    return this._groups;
   }
 }
 

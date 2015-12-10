@@ -11,18 +11,17 @@ export default AuthenticatedComponent(
   class Dashboard extends React.Component {
   constructor(props) {
     super(props);
-    this.state = this.getQuoteState();
+    this.state = this.getGroups();
     this._onChange = this._onChange.bind(this);
     this.handleChange = this.handleChange.bind(this);
     this.state = {
-      groupName: 'changeme'
+      groupName: 'changeme',
+      groups: ''
     };
   }
 
   componentDidMount() {
-    if (!this.state.quote) {
-      this.requestNextQuote();
-    }
+    DashboardService.getGroups();
 
     DashboardStore.addChangeListener(this._onChange);
   }
@@ -32,25 +31,20 @@ export default AuthenticatedComponent(
   }
 
   _onChange() {
-    this.setState(this.getQuoteState());
-  }
-
-  requestNextQuote() {
-    DashboardService.nextQuote();
+    this.setState(this.getGroups());
   }
 
   requestSaveGroup(){
     DashboardService.saveGroup(this.state.groupName);
   }
 
-  getQuoteState() {
+  getGroups() {
     return {
-      quote: DashboardStore.quote
+      groups: DashboardStore.groups
     };
   }
 
   handleChange (newValue) {
-    console.log(newValue);
     this.setState({groupName: newValue});
   }
 
@@ -59,9 +53,15 @@ export default AuthenticatedComponent(
       value: this.state.groupName,
       requestChange: this.handleChange
     };
+    var groups = this.state.groups;
+    var list = [];
+    for(var key in groups){
+      list.push(<li>{groups[key].groupName}</li>)
+    }
     return (
       <div>
        <h1>Save group</h1>
+       {list}
         <form role="form">
         <div className="form-group">
           <label htmlFor="group">Group</label>
