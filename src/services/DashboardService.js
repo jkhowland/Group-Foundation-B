@@ -34,40 +34,42 @@ class DashboardService {
     });
   }
 
+  saveGlobalGroup() {
+
+  }
+
   saveGroup(groupName) {
     var user = LoginStore.userData;
 
     FP.child("profiles/" + Email.escapeEmail(user.email)).child('/groups').push({
-      groupName: groupName,
-      admin: true,
-      name: user.name
-    }).once('value', function(a,b,c){
-      var lastKey = a.key();
-      
-      FP.child("groups/" + lastKey)
-        .push({
-          t:1,
-          a:2
-        }).once('value', function(a,b,c){
-          console.log(a,b,c);
-        });
+        groupName: groupName,
+        admin: true,
+        name: user.name
+      })
+      .once('value', function(a, b, c) {
 
-    });
-    // then(function(a,b,c) {
-    //   var k =  FP.child("profiles/" + Email.escapeEmail(user.email)).child('/groups');
-    //   console.log(k);
-    //   console.log(a,b,c);
-    //   DashboardActions.groupSaved(a);
-     
-    // }, function(err) {
-    //   console.log(err)
-    //     // DashboardActions.gotQuote(response);
-    // });
+        var lastKey = a.key();
+        var joinDate = new Date().getTime();
+
+        FP.child("groups/" + lastKey)
+          .set({
+            groupName: groupName,
+            admin: {
+              [Email.escapeEmail(user.email)]: {
+                name: user.name,
+                phone: user.phone,
+                joinDate: joinDate
+              }
+            }
+          }).then(function() {
+            console.log('ok')
+          }, function(err) {
+            console.log(err)
+          });
+
+      });
   }
 
-  saveGlobalGroup(){
-    
-  }
 }
 
 export default new DashboardService()
