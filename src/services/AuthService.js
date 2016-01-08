@@ -1,4 +1,3 @@
-import request from 'reqwest';
 import when from 'when';
 import FP from '../services/FirebaseService';
 import {LOGIN_URL, SIGNUP_URL} from '../constants/LoginConstants';
@@ -44,8 +43,6 @@ class AuthService {
           LoginActions.loginUser(jwt, user);
           return true;
         });
-        
-        
       });
   }
 

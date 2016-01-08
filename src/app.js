@@ -8,6 +8,8 @@ import Dashboard from './components/Dashboard/Dashboard';
 import RouterContainer from './services/RouterContainer';
 import LoginActions from './actions/LoginActions';
 
+import './stylesheets/index.css';
+
 var routes = (
   <Route handler={AuthenticatedApp}>
     <Route name="login" handler={Login}/>
