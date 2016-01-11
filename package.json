@@ -9,14 +9,10 @@
     ]
   },
   "scripts": {
-    "start": "npm run build && serve .",
-    "build": "npm run build-js && npm run build-css",
-    "watch": "npm run watch-js & npm run watch-sass & serve",
+    "start": "npm run watch",
+    "build": "webpack",
+    "watch": "webpack-dev-server --hot --inline",
     "test": "npm run lint -s && npm run build",
-    "build-js": "browserify --extension=.jsx --extension=.js src/app.jsx | uglifyjs > build/build.js",
-    "build-sass": "node-sass --include-path scss index.scss build/build.css",
-    "watch-js": "watchify --extension=.jsx --extension=.js src/app.jsx -o build/build.js --debug --verbose",
-    "watch-sass": "nodemon -e scss -x 'npm run build-sass'",
     "lint-eslint": "eslint .",
     "lint-jscs": "jscs .",
     "lint": "npm run lint-eslint && npm run lint-jscs"
